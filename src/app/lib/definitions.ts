@@ -17,11 +17,21 @@ export type Customer = {
 };
 
 export type Plant ={
-  id:string,
-  name:string,
-  conndition:string,
-  date:string,
-}
+  id:string;
+  name:string;
+  conndition:string;
+  date:string;
+  waterlevel :number;
+};
+
+
+export type Pot ={
+  id:string;
+  name:string;
+  conndition:string;
+  date:string;
+  waterlevel :number;
+};
 
 export type Invoice = {
   id: string;

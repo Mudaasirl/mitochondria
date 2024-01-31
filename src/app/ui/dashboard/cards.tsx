@@ -4,7 +4,8 @@ import {
   UserGroupIcon,
   InboxIcon,
 } from '@heroicons/react/24/outline';
-import { fetchCardData,fetchPlants } from '../../lib/data';
+import { fetchCardData,fetchPlants,fetchPots } from '../../lib/data';
+import { platform } from 'os';
 
 const iconMap = {
   collected: BanknotesIcon,
@@ -15,9 +16,10 @@ const iconMap = {
 
 export default async function CardWrapper() {
   const [plantData] = await Promise.all([
-    fetchPlants()
+    fetchPots()
   ]);
- 
+  const {numberOfPots } = plantData;
+  
   const [ cardData] = await Promise.all([      
     fetchCardData()
   ]);
@@ -30,9 +32,7 @@ export default async function CardWrapper() {
   } = cardData;
   return (
     <>
-      {/* NOTE: comment in this code when you get to this point in the course */}
-
-       <Card title="Collected" value={totalPaidInvoices} type="collected" />
+             
       <Card title="Pending" value={totalPendingInvoices} type="pending" />
       <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
       <Card
@@ -40,6 +40,7 @@ export default async function CardWrapper() {
         value={numberOfCustomers}
         type="customers"
       /> 
+      <Card title='Total Plants' value={numberOfPots} type="pending"/>
     </>
   );
 }

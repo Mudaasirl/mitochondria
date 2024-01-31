@@ -5,6 +5,7 @@ const {
   revenue,
   users,
   plant,
+  pot,
 } = require('../src/app/lib/placeholder-data.js');
 
 const bcrypt = require('bcrypt');
@@ -48,31 +49,67 @@ async function seedUsers(client) {
   }
 }
 
+async function seedPot(client){
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "pot" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS pot (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        condition TEXT NOT NULL,      
+        date DATE NOT NULL,
+        waterlevel INT NOT NULL
+      );
+    `;
+    console.log('created pot Table');
+    const insertedPot = await Promise.all(
+      pot.map(
+        (pots) => client.sql`
+        INSERT INTO pot (name,condition,date,waterlevel)
+        VALUES (${pots.name},${pots.condition},${pots.date},${pots.waterlevel})
+        ON CONFLICT (id) DO NOTHING;
+        `,
+      ),
+    );
+    console.log(`seeded ${insertedPot.length} pots`);
+    
+    return {
+      createTable,
+      pot:insertedPot,
+    }
+  }catch(error){
+    console.log('error seeding pots',error);
+    throw error;
+  }
+}
+
 async function seedPlant(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
-    // Create the "users" table if it doesn't exist
+    // Create the "plant" table if it doesn't exist
     const createTable =  await client.sql`
     CREATE TABLE IF NOT EXISTS plant(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
-      condition TEXT NOT NULL,
-      date DATE NOT NULL
+      condition TEXT NOT NULL,      
+      date DATE NOT NULL,
+      waterlevel INT NOT NULL
     );
     `;
       console.log('created plant Table');
       const insertedPlant = await Promise.all(
         plant.map(
           (plan) => client.sql`
-          INSERT INTO plant (name,condition,date)
-          VALUES (${plan.name},${plan.condition},${plan.date})
+          INSERT INTO plant (name,condition,date,waterlevel)
+          VALUES (${plan.name},${plan.condition},${plan.date},${plan.waterlevel})
           ON CONFLICT (id) DO NOTHING;
           `,
         ),
       );
       console.log(`seeded ${insertedPlant.length} invoices`);
-      console.log(createTable,insertedPlant)
+      
       return {
         createTable,
         plant:insertedPlant,
@@ -201,7 +238,8 @@ async function main() {
   await seedCustomers(client);
   await seedInvoices(client);
   await seedRevenue(client);
-  await seedPlant(client);
+ // await seedPlant(client);
+  await seedPot(client);
   await client.end();
 }
 

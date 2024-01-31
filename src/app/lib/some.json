@@ -1,0 +1,71 @@
+data {
+    command: 'SELECT',
+    fields: [
+      {
+        columnID: 1,
+        dataTypeID: 2950,
+        dataTypeModifier: -1,
+        dataTypeSize: 16,
+        format: 'text',
+        name: 'id',
+        tableID: 32768
+      },
+      {
+        columnID: 2,
+        dataTypeID: 1043,
+        dataTypeModifier: 259,
+        dataTypeSize: -1,
+        format: 'text',
+        name: 'name',
+        tableID: 32768
+      },
+      {
+        columnID: 3,
+        dataTypeID: 25,
+        dataTypeModifier: -1,
+        dataTypeSize: -1,
+        format: 'text',
+        name: 'condition',
+        tableID: 32768
+      },
+      {
+        columnID: 4,
+        dataTypeID: 1082,
+        dataTypeModifier: -1,
+        dataTypeSize: 4,
+        format: 'text',
+        name: 'date',
+        tableID: 32768
+      }
+    ],
+    rowAsArray: false,
+    rowCount: 4,
+    rows: [
+      {
+        id: 'fe4364cf-d761-4ab9-b1ac-c527de391993',
+        name: 'plant1',
+        condition: 'new',
+        date: 2022-12-05T18:30:00.000Z
+      },
+      {
+        id: 'd5dd8102-9b8b-456b-a1dd-613145e71489',
+        name: 'plant2',
+        condition: 'old',
+        date: 2022-12-06T18:30:00.000Z
+      },
+      {
+        id: 'ee9f9e38-d4aa-4653-8e80-364b054f5b34',
+        name: 'plant1',
+        condition: 'new',
+        date: 2022-12-05T18:30:00.000Z
+      },
+      {
+        id: '3f6fbef0-01dd-4663-80db-d3ed1ab0ecff',
+        name: 'plant2',
+        condition: 'old',
+        date: 2022-12-06T18:30:00.000Z
+      }
+    ],
+    viaNeonFetch: true
+  }
+  { numberOfPlants: NaN }

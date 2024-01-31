@@ -8,15 +8,33 @@ import {
   User,
   Revenue,
   Plant,
+  Pot,
 } from './definitions';
-
 import { unstable_noStore as noStore} from 'next/cache';
+
+export async function fetchPots(){
+  try {
+    console.log('Fetching pots');
+    const data = await sql<Pot>`SELECT * FROM pot`;    
+    const numberOfPots = Number(data.rowCount ?? '0');
+    
+    return {
+      numberOfPots,
+    }
+  } catch (error) {
+    console.log('Database error', error);
+  }
+}
+
 export async function fetchPlants() {noStore()
   try {
     console.log('Fetching plants');
-    const data = await sql<Plant>`SELECT * FROM plant`;
-    console.log('data', data);
-    return data.rows;
+    const data = await sql<Plant>`SELECT * FROM plant`;    
+    const numberOfPlants = Number(data.rowCount ?? '0');
+    
+    return {
+      numberOfPlants,
+    }
   } catch (error) {
     console.log('Database error', error);
   }
@@ -87,7 +105,7 @@ export async function fetchCardData() {noStore()
     const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
     const totalPaidInvoices = /*formatCurrency*/(data[2].rows[0].paid ?? '0');
     const totalPendingInvoices = /*formatCurrency*/(data[2].rows[0].pending ?? '0');
-    console.log(3);
+    
     return {
       numberOfCustomers,
       numberOfInvoices,

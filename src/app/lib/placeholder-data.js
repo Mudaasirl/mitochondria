@@ -181,14 +181,20 @@ const revenue = [
 ];
 
 const plant =[
-  {id:1, name:'plant1', condition: 'new', date: '2022-12-06'},
-  {id:2, name:'plant2', condition: 'old', date: '2022-12-07'},
+  {id:1, name:'plant1', condition: 'new', date: '2022-12-06',waterlevel:2},
+  {id:2, name:'plant2', condition: 'old', date: '2022-12-07',waterlevel:4},
   
-]
+];
+const pot =[
+  {id:1, name:'plant1', condition: 'new', date: '2022-12-06',waterlevel:2},
+  {id:2, name:'plant2', condition: 'old', date: '2022-12-07',waterlevel:4},
+  
+];
 module.exports = {
   users,
   customers,
   invoices,
   revenue,
   plant,
+  pot,
 };
